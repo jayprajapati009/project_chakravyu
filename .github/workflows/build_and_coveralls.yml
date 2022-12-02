@@ -40,18 +40,18 @@ jobs:
         run: sudo apt install -y lcov
 
       # Run CMake to setup compilation flags
-      - name: Configure Coverage CMake 
-        run: cmake -D COVERAGE=ON -D CMAKE_BUILD_TYPE=Debug -B ${{github.workspace}}/build 
+      # - name: Configure Coverage CMake 
+      #   run: cmake -D COVERAGE=ON -D CMAKE_BUILD_TYPE=Debug -B ${{github.workspace}}/build 
       
       # Compile and executables
-      - name: Build Coverage
-        working-directory: ${{github.workspace}}
-        run: make
+      # - name: Build Coverage
+      #   working-directory: ${{github.workspace}}
+      #   run: make
 
       # Run test suite and compute code coverage
-      - name: Run Test Coverage
-        working-directory: ${{github.workspace}}
-        run: make code_coverage
+      # - name: Run Test Coverage
+      #   working-directory: ${{github.workspace}}
+      #   run: make code_coverage
       
       # Upload coverage result to Coverage.io 
       - name: Upload result to Coveralls.io
