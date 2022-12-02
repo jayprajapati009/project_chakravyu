@@ -1,6 +1,6 @@
 # Project Chakravyu
 
-[![Build Status](https://github.com/Tjayprajapati009/project_chakravyu/actions/workflows/build_and_coveralls.yml/badge.svg)](https://github.com/TommyChangUMD/cpp-boilerplate/actions/workflows/build_and_coveralls.yml)
+[![Build Status](https://github.com/jayprajapati009/project_chakravyu/actions/workflows/build_and_coveralls.yml/badge.svg)](https://github.com/ayprajapati009/project_chakravyu/actions/workflows/build_and_coveralls.yml)
 [![Coverage Status](https://coveralls.io/repos/github/jayprajapati009/project_chakravyu/badge.svg?branch=main)](https://coveralls.io/github/jayprajapati009/project_chakravyu?branch=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
