@@ -31,11 +31,6 @@ def generate_launch_description():
         model_folder,
         'model.sdf'
     )
-    # wall_path = os.path.join(
-    #     get_package_share_directory('project_chakravyu'),
-    #     'models',
-    #     'wall.sdf'
-    # )
 
     # Launch configuration variables specific to simulation
     x_pose = LaunchConfiguration('x_pose', default='0.0')
@@ -50,30 +45,6 @@ def generate_launch_description():
         'y_pose', default_value='0.0',
         description='Specify namespace of the robot')
 
-    start_gazebo_ros_spawner_cmd = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=[
-            '-entity', TURTLEBOT3_MODEL,
-            '-file', urdf_path,
-            '-x', x_pose,
-            '-y', y_pose,
-            '-z', '0.01'
-        ],
-        output='screen',
-    )
-    # start_gazebo_ros_spawner_cmd_2 = Node(
-    #     package='gazebo_ros',
-    #     executable='spawn_entity.py',
-    #     arguments=[
-    #         '-entity', 'wall',
-    #         '-file', wall_path,
-    #         '-x', x_pose,
-    #         '-y', y_pose,
-    #         '-z', '0.01'
-    #     ],
-    #     output='screen',
-    # )
 
     ld = LaunchDescription()
 
@@ -81,8 +52,25 @@ def generate_launch_description():
     ld.add_action(declare_x_position_cmd)
     ld.add_action(declare_y_position_cmd)
 
+    for i in range(10):
+        robot_name= "robot_"+str(i)
+        x_val=str(float(i))
+        ld.add_action(Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', robot_name,
+            '-file', urdf_path,
+            '-x', x_val,
+            '-y', y_pose,
+            '-z', '0.01',
+            '-robot_namespace',robot_name
+        ],
+        output='screen',
+    ))
+
     # Add any conditioned actions
-    ld.add_action(start_gazebo_ros_spawner_cmd)
+    # ld.add_action(start_gazebo_ros_spawner_cmd)
     # ld.add_action(start_gazebo_ros_spawner_cmd_2)
 
     return ld
