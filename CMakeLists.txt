@@ -18,6 +18,13 @@ find_package(rosbag2_cpp REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+add_executable(roomba_algo src/cleaner2.cpp)
+ament_target_dependencies(roomba_algo rclcpp std_msgs sensor_msgs geometry_msgs)
+
+install(TARGETS
+  roomba_algo
+  DESTINATION lib/${PROJECT_NAME})
+
 install(DIRECTORY
   launch
   models
