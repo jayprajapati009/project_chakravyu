@@ -19,20 +19,20 @@
  * @brief Construct a new Camera:: Camera object
  *
  */
-Robot::Robot(int id, rclcpp::Node *node ){
-    auto pubTopicName = "robot_"+std::to_string(id)+ "cmd_vel";
-    this->publisher_ = *node->create_publisher<geometry_msgs::msg::Twist> (pubTopicName, 10);
+Robot::Robot() {
+    auto pubTopicName = "robot_"+std::to_string(1)+ "cmd_vel";
+    // this->publisher_ = *node->create_publisher<geometry_msgs::msg::Twist> (pubTopicName, 10);
 }
-void Robot::publish() {
-    this->publisher_->publish(this->message);
-}
-void Robot::set_vel(float l_x, float l_y, float l_z, float a_x, float a_y, float a_z) {
-    this->message.linear.x = l_x;
-    this->message.linear.y = l_x;
-    this->message.linear.z = l_x;
-    this->message.angular.x = a_x;
-    this->message.angular.y = a_y;
-    this->message.angular.z = a_z;
-}
+// void Robot::publish() {
+//     this->publisher_->publish(this->message);
+// }
+// void Robot::set_vel(float l_x, float l_y, float l_z, float a_x, float a_y, float a_z) {
+//     this->message.linear.x = l_x;
+//     this->message.linear.y = l_x;
+//     this->message.linear.z = l_x;
+//     this->message.angular.x = a_x;
+//     this->message.angular.y = a_y;
+//     this->message.angular.z = a_z;
+// }
 
-Robot::~Robot() {}
+// Robot::~Robot() {}

@@ -20,9 +20,9 @@ find_package(rosbag2_cpp REQUIRED)
 
 include_directories(include)
 
-add_executable(roomba_algo src/cleaner2.cpp)
+add_executable(roomba_algo src/main.cpp)
 ament_target_dependencies(roomba_algo rclcpp std_msgs sensor_msgs geometry_msgs)
-add_library(robot_library src/robot.cpp)
+add_library(robot_library src/robot.cpp src/master.cpp)
 target_include_directories(robot_library PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 ament_target_dependencies(robot_library rclcpp std_msgs sensor_msgs geometry_msgs)
 

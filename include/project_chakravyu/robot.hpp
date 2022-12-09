@@ -22,16 +22,9 @@
 
 class Robot{
  private:
-  geometry_msgs::msg::Twist message = geometry_msgs::msg::Twist();
-  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr    publisher_;
-  rclcpp::TimerBase::SharedPtr timer_;
-  rclcpp::Node master_node;
- 
 
  public:
-  explicit Robot(int id);
-  void publish();
-  void set_vel(float l_x, float l_y, float l_z, float a_x, float a_y, float a_z);
-  ~Robot();
+  Robot();
+  // ~Robot();
 };
 #endif  // INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
