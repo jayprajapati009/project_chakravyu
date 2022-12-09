@@ -10,7 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
-
+find_package(nav_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rosbag2_cpp REQUIRED)
@@ -21,10 +21,10 @@ find_package(rosbag2_cpp REQUIRED)
 include_directories(include)
 
 add_executable(roomba_algo src/main.cpp)
-ament_target_dependencies(roomba_algo rclcpp std_msgs sensor_msgs geometry_msgs)
+ament_target_dependencies(roomba_algo rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
 add_library(robot_library src/robot.cpp src/master.cpp)
 target_include_directories(robot_library PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-ament_target_dependencies(robot_library rclcpp std_msgs sensor_msgs geometry_msgs)
+ament_target_dependencies(robot_library rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
 
 
 target_link_directories(roomba_algo PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
