@@ -9,34 +9,28 @@
  * 
  */
 
-#ifndef LIBRARY_ROBOT_HPP_
-#define LIBRARY_ROBOT_HPP_
+#ifndef INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
+#define INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sensor_msgs/msg/image.hpp>
+#include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 
-/**
- * @brief A class that read images or videos from the directory
- * 
- */
-class Robot {
+
+class Robot : public rclcpp::Node {
  private:
-  auto message = TWIST();
-  rclcpp::Publisher<TWIST>::SharedPtr    publisher_;
+  geometry_msgs::msg::Twist message = geometry_msgs::msg::Twist();
+  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr    publisher_;
   rclcpp::TimerBase::SharedPtr           timer_;
-  /**
-   *
-   *  @Param VideoObject This store the object of the video
-   *
-   */
+ 
 
  public:
-  Robot(int robot_id);
+  Robot();
   void publish();
   void set_vel(float l_x, float l_y, float l_z, float a_x, float a_y, float a_z);
   ~Robot();
 };
-#endif  // LIBRARY_ROBOT_HPP_
+#endif  // INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_

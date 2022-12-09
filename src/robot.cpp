@@ -8,10 +8,10 @@
  * @copyright Copyright (c) 2022
  * 
  */
-#include "../library/robot.hpp"
+#include "project_chakravyu/robot.hpp"
 #include <rclcpp/rclcpp.hpp>
 
-#include <sensor_msgs/msg/image.hpp>
+// #include <sensor_msgs/msg/image.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 
 
@@ -19,9 +19,9 @@
  * @brief Construct a new Camera:: Camera object
  *
  */
-Robot::Robot(int robot_id) {
-    auto pubTopicName = "robot_"+std::to_string(robot_id)+ "cmd_vel";
-    this->publisher_ = this->create_publisher<TWIST> (pubTopicName, 10);
+ Robot::Robot() {
+    auto pubTopicName = "robot_"+std::to_string(1)+ "cmd_vel";
+    this->publisher_ = this->create_publisher<geometry_msgs::msg::Twist> (pubTopicName, 10);
 }
 void Robot::publish() {
     this->publisher_->publish(this->message);

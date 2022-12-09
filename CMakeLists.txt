@@ -18,8 +18,23 @@ find_package(rosbag2_cpp REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+include_directories(include)
+
 add_executable(roomba_algo src/cleaner2.cpp)
 ament_target_dependencies(roomba_algo rclcpp std_msgs sensor_msgs geometry_msgs)
+add_library(robot_library src/robot.cpp)
+target_include_directories(robot_library PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+ament_target_dependencies(robot_library rclcpp std_msgs sensor_msgs geometry_msgs)
+
+
+target_link_directories(roomba_algo PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(roomba_algo robot_library)
+
+install(
+  DIRECTORY include/project_chakravyu
+  DESTINATION include
+)
+
 
 install(TARGETS
   roomba_algo
@@ -32,6 +47,7 @@ install(DIRECTORY
   urdf
   DESTINATION share/${PROJECT_NAME}/
 )
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
