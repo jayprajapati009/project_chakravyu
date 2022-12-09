@@ -19,9 +19,9 @@
  * @brief Construct a new Camera:: Camera object
  *
  */
- Robot::Robot() {
-    auto pubTopicName = "robot_"+std::to_string(1)+ "cmd_vel";
-    this->publisher_ = this->create_publisher<geometry_msgs::msg::Twist> (pubTopicName, 10);
+Robot::Robot(int id, rclcpp::Node *node ){
+    auto pubTopicName = "robot_"+std::to_string(id)+ "cmd_vel";
+    this->publisher_ = *node->create_publisher<geometry_msgs::msg::Twist> (pubTopicName, 10);
 }
 void Robot::publish() {
     this->publisher_->publish(this->message);
