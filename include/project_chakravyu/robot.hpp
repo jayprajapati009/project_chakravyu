@@ -33,7 +33,7 @@ class Robot{
  private:
   int robot_id;
   ODOM current_pose;
-  double theta
+  double theta;
   RCL_NODE_PTR node_;
   ODOM goal;
   TWIST message;

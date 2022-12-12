@@ -21,7 +21,7 @@ using namespace std::chrono_literals;
 using TWIST = geometry_msgs::msg::Twist;
 using ODOM = nav_msgs::msg::Odometry;
 using RCL_NODE_PTR = std::shared_ptr<rclcpp::Node>;
-const double PI = 3.14159265359;
+
 
 Master::Master():Node("master_node") {
 // creates publisher to publish /cmd_vel topic

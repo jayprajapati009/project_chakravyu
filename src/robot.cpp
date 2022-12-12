@@ -17,7 +17,7 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2/LinearMath/Transform.h"
-#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
+// #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 #include <cmath>
 
 using std::placeholders::_1;
@@ -28,7 +28,7 @@ using ODOM = nav_msgs::msg::Odometry;
  * @brief Construct a new Camera:: Camera object
  *
  */
-Robot::Robot(RCL_NODE_PTR node, int robot_id):node_(node),robot_id(robot_id){
+Robot::Robot(RCL_NODE_PTR node, int robot_id):node_(node), robot_id(robot_id) {
     this->robot_id = robot_id;
     auto pubTopicName = "robot_"+std::to_string(robot_id)+ "/cmd_vel";
     this->publisher_ = node_->create_publisher<geometry_msgs::msg::Twist> (pubTopicName, 10);
@@ -37,6 +37,12 @@ Robot::Robot(RCL_NODE_PTR node, int robot_id):node_(node),robot_id(robot_id){
     this->subscriber_ = node_->create_subscription<ODOM> (subTopicName, 10, subCallback);
 }
 void Robot::publish() {
+    if (current_theta == goal_theta) {
+        this->move(current_pose, goal_pose);
+    } else {
+        this->rotate(curent_theta, goal_theta);
+    }
+    this->set_vel(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     this->publisher_->publish(this->message);
 }
 void Robot::set_vel(float l_x, float l_y, float l_z, float a_x, float a_y, float a_z) {
@@ -61,9 +67,9 @@ double Robot::get_goal_theta(const ODOM& current_pose, const ODOM& goal) {
     double x2 = goal.pose.pose.position.x;
     double y2 = goal.pose.pose.position.x;
 
-    h = sqrt(pow(y2-y1));
-    w = sqrt(pow(x2-x1))
-    return atan(h/w)
+    double h = sqrt(pow(y2-y1, 2.0));
+    double w = sqrt(pow(x2-x1, 2.0));
+    return atan(h/w);
 }
 
 double Robot::rotate(double current_theta, double goal_theta) {
@@ -72,7 +78,7 @@ double Robot::rotate(double current_theta, double goal_theta) {
         this->publish();
     }
     this->set_vel(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    thuis->publish();
+    this->publish();
 }
 
 void Robot::move(const ODOM& current_pose, const ODOM& goal) {
@@ -85,7 +91,7 @@ void Robot::move(const ODOM& current_pose, const ODOM& goal) {
         this->publish();
     }
     this->set_vel(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    thuis->publish();
+    this->publish();
 }
 
 void Robot::set_goal(double a, double b) {
