@@ -27,7 +27,7 @@ Master::Master():Node("master_node") {
 // creates publisher to publish /cmd_vel topic
 // auto pubTopicName = "cmd_vel";
 // this->publisher_ = this->create_publisher<TWIST> (pubTopicName, 10);
-for(int i ; i < 5 ; i++) {
+for(int i=0; i < 10 ; i++) {
     this->add_robot(i);
     RCLCPP_INFO_STREAM(this->get_logger(), "Robot Added");
 }
@@ -39,7 +39,7 @@ this->timer_ = this->create_wall_timer(100ms, processCallback);
 }
 
 void Master::process_callback() {
-    for (int i;i<5;i++) {
+    for (int i=0;i<10;i++) {
         robot_array_[i]->set_vel(0.0,0.0,0.0,0.0,0.0,4.4);
         robot_array_[i]->publish();
         RCLCPP_INFO_STREAM(this->get_logger(), "iterating Publisher array");
@@ -48,5 +48,5 @@ void Master::process_callback() {
 }
 
 void Master::add_robot(int robot_id) {
-    this->robot_array_[robot_id] = std::make_shared<Robot>(static_cast<RCL_NODE_PTR>(this), robot_id);
+    this->robot_array_.push_back(std::make_shared<Robot>(static_cast<RCL_NODE_PTR>(this), robot_id)) ;
 }

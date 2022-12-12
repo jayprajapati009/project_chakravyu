@@ -15,6 +15,10 @@
 // #include <sensor_msgs/msg/image.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <nav_msgs/msg/odometry.hpp>
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2/LinearMath/Transform.h"
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
+#include <cmath>
 
 using std::placeholders::_1;
 using RCL_NODE_PTR = std::shared_ptr<rclcpp::Node>;
@@ -44,9 +48,42 @@ void Robot::set_vel(float l_x, float l_y, float l_z, float a_x, float a_y, float
     this->message.angular.z = a_z;
 }
 void Robot::subscribe_callback(const ODOM& msg) {
-    this->odometry = msg;
-    RCLCPP_INFO_STREAM(node_->get_logger(), "Sub Called");
+    this->current_pose = msg;
+    // tf2::Quaternion tf2_quat, tf2_quat_from_msg;
+    // tf2::convert(this->current_pose.pose.pose.orientation, tf2_quat_from_msg);
+    // // double theta=tf2::getYaw(tf2_quat_from_msg);
+    RCLCPP_INFO(node_->get_logger(), "Sub Called %f", theta);
   }
 
+double Robot::get_goal_theta(const ODOM& current_pose, const ODOM& goal) {
+    double x1 = current_pose.pose.pose.position.x;
+    double y1 = current_pose.pose.pose.position.y;
+    double x2 = goal.pose.pose.position.x;
+    double y2 = goal.pose.pose.position.x;
 
-// Robot::~Robot() {}
+    h = sqrt(pow(y2-y1));
+    w = sqrt(pow(x2-x1))
+    return atan(h/w)
+}
+
+double Robot::rotate(double current_theta, double goal_theta) {
+    while (current_theta < goal_theta) {
+        this->set_vel(0.0, 0.0, 0.0, 0.0, 0.0, 4.0);
+        this->publish();
+    }
+    this->set_vel(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    thuis->publish();
+}
+
+void Robot::move(const ODOM& current_pose, const ODOM& goal) {
+    double x1 = current_pose.pose.pose.position.x;
+    double y1 = current_pose.pose.pose.position.y;
+    double x2 = goal.pose.pose.position.x;
+    double y2 = goal.pose.pose.position.x;
+    while (x1 < x2 && y1 < y2) {
+         this->set_vel(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        this->publish();
+    }
+    this->set_vel(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    thuis->publish();
+}

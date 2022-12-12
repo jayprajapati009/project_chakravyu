@@ -22,15 +22,7 @@ using ROBOT_PTR = std::shared_ptr<Robot>;
 
 class Master: public rclcpp::Node {
  private:
-    int numNodes = 5;
-    std::vector<ROBOT_PTR> robot_array_  = std::vector<ROBOT_PTR>(numNodes);
-    //  std::vector<rclcpp::Publisher<TWIST>::SharedPtr> publisher_array;
-    //  std::vector<rclcpp::Subscription<ODOM>::SharedPtr> pose_subscriber_array;
-     ////////////////////////////////////////
-  // member variables
-  ////////////////////////////////////////
-    // rclcpp::Subscription<IMAGE>::SharedPtr subscription_;
-    // rclcpp::Publisher<TWIST>::SharedPtr    publisher_;
+    std::vector<ROBOT_PTR> robot_array_ ;
     rclcpp::TimerBase::SharedPtr  timer_;
     
 
@@ -38,7 +30,6 @@ class Master: public rclcpp::Node {
     Master();
     void process_callback();
     void add_robot(int robot_id);
-    // void subscribe_callback(const ODOM& msg);
     // publish
     // get_pose
     // set_location
