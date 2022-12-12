@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <utility>
 
 #include <sensor_msgs/msg/image.hpp>
 #include <rclcpp/rclcpp.hpp>
@@ -44,8 +45,8 @@ class Robot{
   void set_vel(float l_x, float l_y, float l_z, float a_x, float a_y, float a_z);
   void publish();
   void subscribe_callback(const ODOM& msg);
-  double get_goal_theta();
-  // ~Robot();
-  
+  double get_goal_theta(const ODOM& current_pose, const ODOM& goal);
+  void move(const ODOM& current_pose, const ODOM& goal);
+  double rotate(double current_theta, double goal_theta);
 };
 #endif  // INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_

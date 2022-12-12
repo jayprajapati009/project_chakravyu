@@ -30,6 +30,7 @@ class Master: public rclcpp::Node {
     Master();
     void process_callback();
     void add_robot(int robot_id);
+    void circle(double radius);
     // publish
     // get_pose
     // set_location
