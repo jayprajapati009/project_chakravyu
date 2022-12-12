@@ -18,7 +18,7 @@
 using TWIST = geometry_msgs::msg::Twist;
 using ODOM = nav_msgs::msg::Odometry;
 using ROBOT_PTR = std::shared_ptr<Robot>;
-std::shared_ptr<CallbackFunction>
+// std::shared_ptr<CallbackFunction>
 
 class Master: public rclcpp::Node {
  private:

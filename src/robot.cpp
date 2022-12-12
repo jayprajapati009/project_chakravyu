@@ -28,9 +28,9 @@ Robot::Robot(RCL_NODE_PTR node, int robot_id):node_(node),robot_id(robot_id){
     this->robot_id = robot_id;
     auto pubTopicName = "robot_"+std::to_string(robot_id)+ "/cmd_vel";
     this->publisher_ = node_->create_publisher<geometry_msgs::msg::Twist> (pubTopicName, 10);
-    // auto subTopicName = "robot_"+std::to_string(robot_id)+"/odom";
-    // auto subCallback = std::bind(this->subscribe_callback, node_, _1);
-    // this->subscriber_ = node_->create_subscription<ODOM> (subTopicName, 10, subCallback);
+    auto subTopicName = "robot_"+std::to_string(robot_id)+"/odom";
+    auto subCallback = std::bind(&Robot::subscribe_callback, this, _1);
+    this->subscriber_ = node_->create_subscription<ODOM> (subTopicName, 10, subCallback);
 }
 void Robot::publish() {
     this->publisher_->publish(this->message);
@@ -43,10 +43,10 @@ void Robot::set_vel(float l_x, float l_y, float l_z, float a_x, float a_y, float
     this->message.angular.y = a_y;
     this->message.angular.z = a_z;
 }
-// void Robot::subscribe_callback(const ODOM& msg) {
-//     this->odometry = msg;
-//     RCLCPP_INFO_STREAM(node_->get_logger(), "Sub Called");
-//   }
+void Robot::subscribe_callback(const ODOM& msg) {
+    this->odometry = msg;
+    RCLCPP_INFO_STREAM(node_->get_logger(), "Sub Called");
+  }
 
 
 // Robot::~Robot() {}
