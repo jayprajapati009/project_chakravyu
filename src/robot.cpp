@@ -87,3 +87,8 @@ void Robot::move(const ODOM& current_pose, const ODOM& goal) {
     this->set_vel(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     thuis->publish();
 }
+
+void Robot::set_goal(double a, double b) {
+    this->goal.pose.pose.position.x = a;
+    this->goal.pose.pose.position.y = b;
+}

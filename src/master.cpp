@@ -57,9 +57,7 @@ void Master::circle(double radius) {
     for (double i = 0.0 ; i < h ; i += h) {
         double a = radius * cos(i);
         double b = radius * sin(i);
-        robot_array_[id]->goal.pose.pose.position.x = a;
-        robot_array_[id]->goal.pose.pose.position.y = b;
+        robot_array_[id]->set_goal(a, b);
         id+=1;
-
     }
 }

@@ -48,5 +48,6 @@ class Robot{
   double get_goal_theta(const ODOM& current_pose, const ODOM& goal);
   void move(const ODOM& current_pose, const ODOM& goal);
   double rotate(double current_theta, double goal_theta);
+  void set_goal(double a, double b);
 };
 #endif  // INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
