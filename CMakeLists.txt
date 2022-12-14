@@ -34,14 +34,14 @@ include_directories(include)
 
 # add_executable(slave src/slave.cpp)
 # ament_target_dependencies(slave tf2 tf2_ros rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
-add_executable(roomba_algo src/main.cpp)
-ament_target_dependencies(roomba_algo tf2 tf2_ros rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
+add_executable(master src/main.cpp)
+ament_target_dependencies(master tf2 tf2_ros rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
 add_library(robot_library src/robot.cpp src/master.cpp)
 target_include_directories(robot_library PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 ament_target_dependencies(robot_library tf2 tf2_ros rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
 
-target_link_directories(roomba_algo PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
-target_link_libraries(roomba_algo robot_library)
+target_link_directories(master PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+target_link_libraries(master robot_library)
 
 # target_link_directories(slave PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 # target_link_libraries(slave robot_library)
@@ -51,7 +51,7 @@ install(
 )
 
 install(TARGETS
-  roomba_algo
+  master
 
   # slave
   DESTINATION lib/${PROJECT_NAME})

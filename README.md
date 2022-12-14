@@ -41,6 +41,14 @@ The fleet of robots while performing the prescribed task of aligning to form a g
 |AIP Backlog and Worklog Sheet|[Link](https://docs.google.com/spreadsheets/d/1fCrZ5zCcu7wbSNEzoXJNjJSVYKHJ8yOg8b6y1aFy0Is/edit?usp=sharing)|
 |Sprint and Review Meeting Notes|[Link](https://docs.google.com/document/d/1zADA51S8-DCuGPjZB7dvrBzD6DiS--uvvF-nh4I-Mvw/edit?usp=sharing)|
 
+# Launch
+```bash
+ros2 launch project_chakravyu gazebo_launch.py node_count:=20
+#In another terminal run after all robots ae spawned
+ros2 run project_chakravyu master 20
+```
+Change the number of node arguments according to liking
+
 
 
 
