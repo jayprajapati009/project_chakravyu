@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+import sys
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -20,6 +21,9 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
+for arg in sys.argv:
+    if arg.startswith("node_count:="):
+        count = int(arg.split(":=")[1])
 
 def generate_launch_description():
     # Get the urdf file
@@ -51,8 +55,7 @@ def generate_launch_description():
     # Declare the launch options
     ld.add_action(declare_x_position_cmd)
     ld.add_action(declare_y_position_cmd)
-
-    for i in range(10):
+    for i in range(count):
         robot_name= "robot_"+str(i)
         x_val=str(float(i))
         ld.add_action(Node(

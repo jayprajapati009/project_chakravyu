@@ -23,8 +23,9 @@ using ODOM = nav_msgs::msg::Odometry;
 using RCL_NODE_PTR = std::shared_ptr<rclcpp::Node>;
 
 
-Master::Master(std::vector<std::shared_ptr<Robot>> const &robot_array):Node("master_node") {
+Master::Master(std::vector<std::shared_ptr<Robot>> const &robot_array, int nodes):Node("master_node") {
     this->robot_array = robot_array;
+    this->nodes = nodes;
     auto processCallback = std::bind(&Master::process_callback, this);
     this->timer_ = this->create_wall_timer(100ms, processCallback);
     this->circle(10.0);
@@ -36,14 +37,15 @@ void Master::process_callback() {
 
 
 void Master::circle(double radius) {
-    int n = 10;
-    double h = 2*3.142/n;
+    double h = 2*3.142/this->nodes;
     int id = 0;
-    for (double i = 0.0 ; i < h*n ; i += h) {
+    for (double i = 0.0 ; i < h*this->nodes; i += h) {
         double a = radius * cos(i);
         double b = radius * sin(i);
-        this->robot_array[id]->set_goal(a, b);
-        RCLCPP_INFO_STREAM(this->get_logger(), "robot_id "<< id << " a " << a << " b "<< b);
-        id+=1;
+        if (i < 2*3.14) {
+            this->robot_array[id]->set_goal(a, b);
+            RCLCPP_INFO_STREAM(this->get_logger(), "robot_id "<< id << " a " << a << " b "<< b);
+            id+=1;
+        }
     }
 }

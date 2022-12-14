@@ -27,9 +27,10 @@ class Master: public rclcpp::Node {
     rclcpp::TimerBase::SharedPtr  timer_;
     rclcpp::Publisher<TWIST>::SharedPtr publisher_;  // Change to publish to custom robot array
     std::vector<std::shared_ptr<Robot>> robot_array;
+    int nodes;
 
  public:
-    Master(std::vector<std::shared_ptr<Robot>> const &robot_array);
+    Master(std::vector<std::shared_ptr<Robot>> const &robot_array, int nodes);
     /**
      * @brief process callback to kepp the ode running
      * 
