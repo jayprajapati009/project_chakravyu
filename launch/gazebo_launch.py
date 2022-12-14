@@ -108,8 +108,8 @@ def generate_launch_description():
         
 
     
-    ld.add_action(TimerAction(period=20.0+float(count*4),
-            actions=[runner_node],))
+    # ld.add_action(TimerAction(period=20.0+float(count*2),
+    #         actions=[runner_node],))
     
     # Add the commands to the launch description
     ld.add_action(gzserver_cmd)
