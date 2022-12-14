@@ -12,18 +12,19 @@
 #ifndef INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
 #define INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
 
+#include <string>
+#include <utility>
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <std_msgs/msg/bool.hpp>
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <nav_msgs/msg/odometry.hpp>
-#include <string>
 
 
 
-class Robot : public rclcpp::Node
-{
-public:
+
+class Robot : public rclcpp::Node {
+ public:
     Robot(std::string node_name,
                   std::string robot_name,
                   bool go_to_goal = false,
@@ -39,10 +40,7 @@ public:
                                                 m_kv{1},
                                                 m_kh{1},
                                                 m_goal_x{0.0},
-                                                m_goal_y{0.0}
-                                                // m_distance_to_goal{1.0}, 
-                                                // m_goal_set{false}
-    {
+                                                m_goal_y{0.0} {
         auto current_location = std::make_pair<double, double>(3.0, 0.0);
         m_location = current_location;
         m_cbg = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
@@ -53,15 +51,12 @@ public:
         RCLCPP_INFO_STREAM(this->get_logger(), "Robot Constructor");
         m_publisher_cmd_vel = this->create_publisher<geometry_msgs::msg::Twist>(command_topic_name, 10);
         m_goal_reached_publisher = this->create_publisher<std_msgs::msg::Bool>("goal_reached", 10);
-        m_subscriber_robot3_pose = this->create_subscription<nav_msgs::msg::Odometry>(pose_topic_name, 10, std::bind(&Robot::robot_pose_callback, this, std::placeholders::_1));
+        m_subscriber_robot3_pose = this->create_subscription<nav_msgs::msg::Odometry>
+                (pose_topic_name, 10, std::bind(&Robot::robot_pose_callback, this, std::placeholders::_1));
         // Call on_timer function 5 times per second
-        m_go_to_goal_timer = this->create_wall_timer(std::chrono::milliseconds((int)(1000.0 / 1)), std::bind(&Robot::go_to_goal_callback, this), m_cbg);
+        m_go_to_goal_timer = this->create_wall_timer(std::chrono::milliseconds(static_cast<int>(1000.0 / 1)),
+                             std::bind(&Robot::go_to_goal_callback, this), m_cbg);
     }
-
-    // /**
-    //  * @brief Move a robot to a goal position.
-    //  */
-    // void go_to_goal();
 
     /**
      * @brief Set the goal to reach.
@@ -70,31 +65,33 @@ public:
      * @param x x-coordinate of the goal position.
      * @param y y-coordinate of the goal position.
      */
-    void set_goal(double x, double y)
-    {
+    void set_goal(double x, double y) {
         m_go_to_goal = true;
         m_goal_x = x;
         m_goal_y = y;
         RCLCPP_INFO_STREAM(this->get_logger(), "Going to goal: [" << m_goal_x << "," << m_goal_y << "]");
     }
-
+    /**
+     * @brief Stop the robot from moving
+     * 
+     */
     void stop();
 
-private:
+ private:
     // attributes
-    std::string m_robot_name;
-    bool m_go_to_goal;
-    double m_linear_speed;
-    double m_angular_speed;
+    std::string m_robot_name;  // robot name used for creating namespace
+    bool m_go_to_goal;   // flag to store if the robot has reached position
+    double m_linear_speed;  // base linear velocity of robot
+    double m_angular_speed;  // base angular velocity of robot
     double m_roll;  // rad
-    double m_pitch; // rad
+    double m_pitch;  // rad
     double m_yaw;   // rad
     double m_kv;    // gain for linear velocity
     double m_kh;    // gain for angular velocity
-    double m_goal_x;
+    double m_goal_x; 
     double m_goal_y;
     double m_distance_to_goal;
-    // bool m_goal_set;
+   
     rclcpp::CallbackGroup::SharedPtr m_cbg;
     rclcpp::TimerBase::SharedPtr m_timer;
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_publisher_cmd_vel;
@@ -135,9 +132,25 @@ private:
      */
     double normalize_angle(double angle);
 
+    /**
+     * @brief Compute the yaw angle from quaternion pose
+     * 
+     * @return double 
+     */
     double compute_yaw_from_quaternion();
+
+    /**
+     * @brief To move to robot by publish velocities on cmd_vel
+     * 
+     * @param linear linear velocity component
+     * @param angular angular velocity component
+     */
     void move(double linear, double angular);
 
+    /**
+     * @brief process to move the robot to a goal
+     * 
+     */
     void go_to_goal_callback();
 
 };

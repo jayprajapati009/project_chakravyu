@@ -23,29 +23,25 @@ void Robot::robot_pose_callback(const nav_msgs::msg::Odometry& msg) {
     m_orientation = msg.pose.pose.orientation;
 }
 
-double Robot::normalize_angle_positive(double angle)
-{
+double Robot::normalize_angle_positive(double angle) {
     const double result = fmod(angle, 2.0 * M_PI);
     if (result < 0)
         return result + 2.0 * M_PI;
     return result;
 }
 
-double Robot::normalize_angle(double angle)
-{
+double Robot::normalize_angle(double angle) {
     const double result = fmod(angle + M_PI, 2.0 * M_PI);
     if (result <= 0.0)
         return result + M_PI;
     return result - M_PI;
 }
 
-double Robot::compute_distance(const std::pair<double, double> &a, const std::pair<double, double> &b)
-{
+double Robot::compute_distance(const std::pair<double, double> &a, const std::pair<double, double> &b) {
     return sqrt(pow(b.first - a.first, 2) + pow(b.second - a.second, 2));
 }
 
-double Robot::compute_yaw_from_quaternion()
-{
+double Robot::compute_yaw_from_quaternion() {
     tf2::Quaternion q(
         m_orientation.x,
         m_orientation.y,
@@ -58,16 +54,14 @@ double Robot::compute_yaw_from_quaternion()
     return yaw;
 }
 
-void Robot::move(double linear, double angular)
-{
+void Robot::move(double linear, double angular) {
     geometry_msgs::msg::Twist msg;
     msg.linear.x = linear;
     msg.angular.z = angular;
     m_publisher_cmd_vel->publish(msg);
 }
 
-void Robot::stop()
-{
+void Robot::stop() {
     m_go_to_goal = false;
     geometry_msgs::msg::Twist cmd_vel_msg;
     cmd_vel_msg.linear.x = 0;
@@ -77,33 +71,18 @@ void Robot::stop()
     std_msgs::msg::Bool goal_reached_msg;
     goal_reached_msg.data = true;
     m_goal_reached_publisher->publish(goal_reached_msg);
-
-    
 }
 
-void Robot::go_to_goal_callback()
-{
-
-    // RCLCPP_INFO_STREAM(this->get_logger(), "go_to_goal_callback");
-    // if (m_location.first == 3.0 && m_location.second == 0)
-    // {
-    //     RCLCPP_INFO(this->get_logger(), "Robot is not localized yet");
-    //     return;
-    // }
-
+void Robot::go_to_goal_callback() {
     if (!m_go_to_goal)
         return;
 
     std::pair<double, double> goal{m_goal_x, m_goal_y};
     double distance_to_goal = compute_distance(m_location, goal);
 
-    // RCLCPP_INFO_STREAM(this->get_logger(), "Current position: [" << m_location.first << "," << m_location.second << "]");
-
-    if (distance_to_goal > 0.1)
-    {
+    if (distance_to_goal > 0.1) {
         distance_to_goal = compute_distance(m_location, goal);
         double angle_to_goal = std::atan2(m_goal_y - m_location.second, m_goal_x - m_location.first);
-        // RCLCPP_INFO_STREAM(this->get_logger(), "Distance to goal: [" << distance_to_goal << "]");
 
         if (angle_to_goal < 0)
             // angle_to_goal = 2 * M_PI + angle_to_goal;
@@ -112,8 +91,7 @@ void Robot::go_to_goal_callback()
         // angle to rotate to face the goal
         double w = angle_to_goal - compute_yaw_from_quaternion();
 
-        if (w > M_PI)
-        {
+        if (w > M_PI) {
             w = w - 2 * M_PI;
             // w = m_normalize_angle_positive(w);
         }
@@ -129,9 +107,7 @@ void Robot::go_to_goal_callback()
             angular_z = std::max(angular_z, -m_angular_speed);
 
         move(linear_x, angular_z);
-    }
-    else
-    {
+    } else {
         RCLCPP_INFO_STREAM(this->get_logger(), "********** Goal reached **********");
         stop();
     }
