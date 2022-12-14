@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
+#include <stdexcept>
+#include <string>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <geometry_msgs/msg/twist.hpp>
@@ -28,16 +30,30 @@
 int main(int argc, char ** argv) {
   rclcpp::init(argc, argv);
   rclcpp::executors::MultiThreadedExecutor exec;
-  auto bot_controller = std::make_shared<Robot>("bot_controller_robot", "robot_1");
+  int nodes = 10;
+  if (argc > 0) {
+        std::string arg = argv[1];
+    try {
+      std::size_t pos;
+      nodes = std::stoi(arg, &pos);
+      if (pos < arg.size()) {
+        std::cerr << "Trailing characters after number: " << arg << '\n';
+      }
+    } catch (std::invalid_argument const &ex) {
+      std::cerr << "Invalid number: " << arg << '\n';
+    } catch (std::out_of_range const &ex) {
+      std::cerr << "Number out of range: " << arg << '\n';
+    }
+  }
   std::vector<std::shared_ptr<Robot>> robot_array;
-  for (int i = 0 ; i < 10 ; i++) {
+  for (int i = 0 ; i < nodes ; i++) {
     auto r_namespace = "robot_"+std::to_string(i);
     auto nodename = "robot_"+std::to_string(i) + "_controller";
     auto robot = std::make_shared<Robot>(nodename, r_namespace);
     exec.add_node(robot);
     robot_array.push_back(robot);
   }
-  auto node = std::make_shared<Master>(robot_array);
+  auto node = std::make_shared<Master>(robot_array, static_cast<int>(nodes));
   exec.add_node(node);
   exec.spin();
   rclcpp::shutdown();

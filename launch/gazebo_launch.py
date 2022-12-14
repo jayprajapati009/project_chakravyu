@@ -17,18 +17,27 @@
 # Authors: Joep Tool
 
 import os
-
+import sys
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription,DeclareLaunchArgument, ExecuteProcess, TimerAction
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration,PythonExpression
 
 
+for arg in sys.argv:
+    if arg.startswith("node_count:="):
+        count = int(arg.split(":=")[1])
+    else:
+        count = 10
+
 def generate_launch_description():
+
     launch_file_dir = os.path.join(get_package_share_directory('project_chakravyu'), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     x_pose = LaunchConfiguration('x_pose', default='0.0')
@@ -60,47 +69,56 @@ def generate_launch_description():
         launch_arguments={'use_sim_time': use_sim_time}.items()
     )
 
-    spawn_turtlebot_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
-        ),
-        launch_arguments={
-            'x_pose': x_pose,
-            'y_pose': y_pose
-        }.items()
-    )
-    ros_bag = LaunchConfiguration('ros_bag')
-
-    ros_bag_arg = DeclareLaunchArgument(
-        'ros_bag',
-        default_value='False'
-    )
-    ros_bag_conditioned = ExecuteProcess(
-        condition=IfCondition(
-            PythonExpression([
-                ros_bag,
-                ' == True'
-            ])
-        ),
+    runner_node = ExecuteProcess(
         cmd=[[
-            'ros2 run project_chakravyu simple_bag_recorder'
+            'ros2 run project_chakravyu roomba_algo '+str(count)
         ]],
         shell=True
     )
-    ta=TimerAction(
-            period=2.0,
-            actions=[ros_bag_conditioned],
-        )
-    
+  
 
+    # Get the urdf file
+    TURTLEBOT3_MODEL = 'waffle_pi'
+    model_folder = 'turtlebot3_' + TURTLEBOT3_MODEL
+    urdf_path = os.path.join(
+        get_package_share_directory('project_chakravyu'),
+        'models',
+        model_folder,
+        'model.sdf'
+    )
     ld = LaunchDescription()
+    for i in range(count):
+        robot_name= "robot_"+str(i)
+        x_val=str(float(i-(count/2)))
+        node=Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', robot_name,
+            '-file', urdf_path,
+            '-x', x_val,
+            '-y', y_pose,
+            '-z', '0.01',
+            '-robot_namespace',robot_name
+        ],
+        output='screen',
+    )
+        ld.add_action(TimerAction(period=10.0+float(i*2),
+            actions=[node],))
+        
 
+    
+    ld.add_action(TimerAction(period=20.0+float(count*4),
+            actions=[runner_node],))
+    
     # Add the commands to the launch description
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
     ld.add_action(robot_state_publisher_cmd)
-    ld.add_action(spawn_turtlebot_cmd)
-    ld.add_action(ros_bag_arg)
-    ld.add_action(ta)
+    
+
+    # ld.add_action(spawn_turtlebot_cmd)
+    # ld.add_action(node_arg)
+
     
     return ld
