@@ -18,6 +18,15 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(ament_cmake_gtest)
 
+# Coverage
+if(COVERAGE)
+  set(CMAKE_BUILD_TYPE "Debug")
+  set(CMAKE_CXX_FLAGS "--coverage")
+  set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE "ON")
+  set(ARG_CONFIG_FILE "${PROJECT_SOURCE_DIR}/uncrustify_google_cpp_allman.cfg"
+    CACHE STRING "uncrustify config file")
+endif()
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -76,5 +85,10 @@ if(BUILD_TESTING)
     test_${PROJECT_NAME}
     DESTINATION lib/${PROJECT_NAME})
 endif()
+
+# # Install some arbitrary executables
+install(PROGRAMS # want to make the file executable (ie. chmod a+x)
+  scripts/generate_coverage_report.bash
+  DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
