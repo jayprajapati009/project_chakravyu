@@ -1,7 +1,7 @@
 # Project Chakravyu
 
+[![codecov](https://codecov.io/gh/jayprajapati009/my-ros2-project_chakravyu-exp/branch/main/graph/badge.svg?token=KRAHD3BZP7)](https://codecov.io/gh/jayprajapati009/project_chakravyu)
 [![Build Status](https://github.com/jayprajapati009/project_chakravyu/actions/workflows/build_and_coveralls.yml/badge.svg)](https://github.com/ayprajapati009/project_chakravyu/actions/workflows/build_and_coveralls.yml)
-[![Coverage Status](https://coveralls.io/repos/github/jayprajapati009/project_chakravyu/badge.svg?branch=main)](https://coveralls.io/github/jayprajapati009/project_chakravyu?branch=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 # Authors
