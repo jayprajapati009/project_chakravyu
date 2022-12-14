@@ -24,7 +24,7 @@ class Master: public rclcpp::Node {
     rclcpp::Publisher<TWIST>::SharedPtr publisher_; // Change to publish to custom robot array
 
  public:
-    Master();
+    Master(std::vector<std::shared_ptr<Robot>> const &robot_array);
     void process_callback();
    //  void circle(double radius);
 };

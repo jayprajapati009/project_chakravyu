@@ -23,13 +23,16 @@ using ODOM = nav_msgs::msg::Odometry;
 using RCL_NODE_PTR = std::shared_ptr<rclcpp::Node>;
 
 
-Master::Master():Node("master_node") {
+Master::Master(std::vector<std::shared_ptr<Robot>> const &robot_array):Node("master_node") {
 // creates publisher to publish /cmd_vel topic
 // auto pubTopicName = "cmd_vel";
 // this->publisher_ = this->create_publisher<TWIST> (pubTopicName, 10);
 // create a 10Hz timer for processing
 auto processCallback = std::bind(&Master::process_callback, this);
 this->timer_ = this->create_wall_timer(100ms, processCallback);
+for (int i = 0; i < 10; i++) {
+        robot_array[i]->set_goal(static_cast< float >(i), static_cast< float >(i));
+    }
 }
 
 void Master::process_callback() {

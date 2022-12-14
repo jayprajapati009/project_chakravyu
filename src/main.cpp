@@ -12,6 +12,7 @@
 #include <sensor_msgs/msg/image.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include "project_chakravyu/master.hpp"
+#include "project_chakravyu/robot.hpp"
 
 
 
@@ -26,7 +27,20 @@
  */
 int main(int argc, char ** argv) {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<Master>());
+  rclcpp::executors::MultiThreadedExecutor exec;
+  auto bot_controller = std::make_shared<Robot>("bot_controller_robot", "robot_1");
+  std::vector<std::shared_ptr<Robot>> robot_array;
+  for (int i = 0 ; i < 10 ; i++) {
+    auto r_namespace = "robot_"+std::to_string(i);
+    auto nodename = "robot_"+std::to_string(i) + "_controller";
+    auto robot = std::make_shared<Robot>(nodename, r_namespace);
+    exec.add_node(robot);
+    robot_array.push_back(robot);
+  }
+  
+  auto node = std::make_shared<Master>(robot_array);
+  exec.add_node(node);
+  exec.spin();
   rclcpp::shutdown();
   return 0;
 }

@@ -9,39 +9,19 @@
  * 
  */
 #include "project_chakravyu/robot.hpp"
+#include <rclcpp/rclcpp.hpp>
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2/LinearMath/Matrix3x3.h"
+#include "tf2/exceptions.h"
+#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.h"
+#include <geometry_msgs/msg/transform_stamped.hpp>
 
-using std::placeholders::_1;
-
-/**
- * @brief Construct a new Robot:: Robot object
- * 
- * @param node 
- * @param robot_id 
- */
-
-
-void Robot::process_callback() {
-     RCLCPP_INFO_STREAM(this->get_logger(), "Publisher ");
-     go_to_goal_callback();
-     
-    }
-
-void Robot::subscribe_callback(const ODOM& msg) {
-    ODOM current = msg;
-    m_location.first = current.pose.pose.position.x;
-    m_location.second = current.pose.pose.position.y;
-    m_orientation = current.pose.pose.orientation;
-    RCLCPP_INFO(this->get_logger(), "Sub Called ");
-
-  }
-//   ######
-void Robot::set_goal(double x, double y)
-    {
-        m_go_to_goal = true;
-        m_goal_x = x;
-        m_goal_y = y;
-        RCLCPP_INFO_STREAM(this->get_logger(), "Going to goal: [" << m_goal_x << "," << m_goal_y << "]");
-    }
+void Robot::robot_pose_callback(const nav_msgs::msg::Odometry& msg) {
+    m_location.first = msg.pose.pose.position.x;
+    m_location.second = msg.pose.pose.position.y;
+    m_orientation = msg.pose.pose.orientation;
+}
 
 double Robot::normalize_angle_positive(double angle)
 {
@@ -83,7 +63,7 @@ void Robot::move(double linear, double angular)
     geometry_msgs::msg::Twist msg;
     msg.linear.x = linear;
     msg.angular.z = angular;
-    publisher_->publish(msg);
+    m_publisher_cmd_vel->publish(msg);
 }
 
 void Robot::stop()
@@ -92,16 +72,25 @@ void Robot::stop()
     geometry_msgs::msg::Twist cmd_vel_msg;
     cmd_vel_msg.linear.x = 0;
     cmd_vel_msg.angular.z = 0;
-    publisher_->publish(cmd_vel_msg);
+    m_publisher_cmd_vel->publish(cmd_vel_msg);
 
     std_msgs::msg::Bool goal_reached_msg;
     goal_reached_msg.data = true;
+    m_goal_reached_publisher->publish(goal_reached_msg);
 
     
 }
 
 void Robot::go_to_goal_callback()
 {
+
+    // RCLCPP_INFO_STREAM(this->get_logger(), "go_to_goal_callback");
+    // if (m_location.first == 3.0 && m_location.second == 0)
+    // {
+    //     RCLCPP_INFO(this->get_logger(), "Robot is not localized yet");
+    //     return;
+    // }
+
     if (!m_go_to_goal)
         return;
 
