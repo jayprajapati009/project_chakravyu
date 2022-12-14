@@ -28,26 +28,29 @@ Master::Master(std::vector<std::shared_ptr<Robot>> const &robot_array):Node("mas
 // auto pubTopicName = "cmd_vel";
 // this->publisher_ = this->create_publisher<TWIST> (pubTopicName, 10);
 // create a 10Hz timer for processing
+this->robot_array=robot_array;
 auto processCallback = std::bind(&Master::process_callback, this);
 this->timer_ = this->create_wall_timer(100ms, processCallback);
-for (int i = 0; i < 10; i++) {
-        robot_array[i]->set_goal(static_cast< float >(i), static_cast< float >(i));
-    }
+this->circle(10.0);
 }
 
 void Master::process_callback() {
     
-    RCLCPP_INFO_STREAM(this->get_logger(), "iterating Publisher array");
+    // RCLCPP_INFO_STREAM(this->get_logger(), "iterating Publisher array");
     
 }
 
 
-// void Master::circle(double radius) {
-//     double h = 2*PI/1;
-//     int id = 0;
-//     for (double i = 0.0 ; i < h ; i += h) {
-//         double a = radius * cos(i);
-//         double b = radius * sin(i);
-//         robot_array_[id]->set_goal(a, b);
-//         id+=1;
-//     }
+void Master::circle(double radius) {
+    int n=10;
+    double h = 2*3.142/n;
+    int id = 0;
+    for (double i = 0.0 ; i < h*n ; i += h) {
+        double a = radius * cos(i);
+        double b = radius * sin(i);
+        this->robot_array[id]->set_goal(a, b);
+        RCLCPP_INFO_STREAM(this->get_logger(), "robot_id "<<id<<" a "<<a<<" b "<<b);
+        id+=1;
+
+    }
+}

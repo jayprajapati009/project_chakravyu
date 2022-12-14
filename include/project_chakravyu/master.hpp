@@ -22,11 +22,12 @@ class Master: public rclcpp::Node {
  private:
     rclcpp::TimerBase::SharedPtr  timer_;
     rclcpp::Publisher<TWIST>::SharedPtr publisher_; // Change to publish to custom robot array
+    std::vector<std::shared_ptr<Robot>> robot_array;
 
  public:
     Master(std::vector<std::shared_ptr<Robot>> const &robot_array);
     void process_callback();
-   //  void circle(double radius);
+    void circle(double radius);
 };
 
 
