@@ -16,35 +16,33 @@ find_package(std_msgs REQUIRED)
 find_package(rosbag2_cpp REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
-
 include_directories(include)
 
 # add_executable(slave src/slave.cpp)
 # ament_target_dependencies(slave tf2 tf2_ros rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
-
 add_executable(roomba_algo src/main.cpp)
 ament_target_dependencies(roomba_algo tf2 tf2_ros rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
 add_library(robot_library src/robot.cpp src/master.cpp)
 target_include_directories(robot_library PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 ament_target_dependencies(robot_library tf2 tf2_ros rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
 
-
 target_link_directories(roomba_algo PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 target_link_libraries(roomba_algo robot_library)
+
 # target_link_directories(slave PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 # target_link_libraries(slave robot_library)
-
 install(
   DIRECTORY include/project_chakravyu
   DESTINATION include
 )
 
-
 install(TARGETS
   roomba_algo
+
   # slave
   DESTINATION lib/${PROJECT_NAME})
 
@@ -56,17 +54,26 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}/
 )
 
-
 if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
-  set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
+  # find_package(ament_lint_auto REQUIRED)
+
+  # # the following line skips the linter which checks for copyrights
+  # # comment the line when a copyright and license is added to all source files
+  # set(ament_cmake_copyright_FOUND TRUE)
+
+  # # the following line skips cpplint (only works in a git repo)
+  # # comment the line when this package is in a git repo and when
+  # # a copyright and license is added to all source files
+  # set(ament_cmake_cpplint_FOUND TRUE)
+  # ament_lint_auto_find_test_dependencies()
+  set(TESTFILES
+    test/test.cpp)
+  ament_add_gtest(test_${PROJECT_NAME} ${TESTFILES})
+  ament_target_dependencies(test_${PROJECT_NAME} rclcpp std_msgs)
+
+  install(TARGETS
+    test_${PROJECT_NAME}
+    DESTINATION lib/${PROJECT_NAME})
 endif()
 
 ament_package()
