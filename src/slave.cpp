@@ -11,10 +11,10 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <geometry_msgs/msg/twist.hpp>
-#include "project_chakravyu/master.hpp"
 
-
-
+#include "project_chakravyu/robot.hpp"
+using std::placeholders::_1;
+using namespace std::chrono_literals;
 
 
 /**
@@ -26,7 +26,7 @@
  */
 int main(int argc, char ** argv) {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<Master>());
+  rclcpp::spin(std::make_shared<Robot>(false,0.5,0.3));
   rclcpp::shutdown();
   return 0;
 }

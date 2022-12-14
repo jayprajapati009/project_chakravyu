@@ -17,26 +17,16 @@
 
 using TWIST = geometry_msgs::msg::Twist;
 using ODOM = nav_msgs::msg::Odometry;
-using ROBOT_PTR = std::shared_ptr<Robot>;
-// std::shared_ptr<CallbackFunction>
 
 class Master: public rclcpp::Node {
  private:
-    std::vector<ROBOT_PTR> robot_array_ ;
     rclcpp::TimerBase::SharedPtr  timer_;
-    
+    rclcpp::Publisher<TWIST>::SharedPtr publisher_; // Change to publish to custom robot array
 
  public:
     Master();
     void process_callback();
-    void add_robot(int robot_id);
-    void circle(double radius);
-    // publish
-    // get_pose
-    // set_location
-    // algorithm
-
-    // ~Master();
+   //  void circle(double radius);
 };
 
 
