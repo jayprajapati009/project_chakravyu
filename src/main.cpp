@@ -37,7 +37,6 @@ int main(int argc, char ** argv) {
     exec.add_node(robot);
     robot_array.push_back(robot);
   }
-  
   auto node = std::make_shared<Master>(robot_array);
   exec.add_node(node);
   exec.spin();
