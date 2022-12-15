@@ -69,6 +69,14 @@ TEST_F(TestSuite, test_publisher_count)
   auto number_of_publishers = test_node_->count_publishers("topic");
   EXPECT_EQ(2, static_cast<int>(number_of_publishers));
 }
+TEST_F(TestSuite, robot_object)
+{
+  auto r_namespace = "robot_" + std::to_string(1);
+  auto nodename = "robot_" + std::to_string(1) + "_controller";
+  robot = std::make_shared<Robot>(nodename, r_namespace);
+  robot->go_to_goal_callback();
+  EXPECT_EQ(1, 1);
+}
 TEST_F(TestSuite, robot_testing)
 {
   auto r_namespace = "robot_" + std::to_string(1);
