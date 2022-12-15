@@ -7,7 +7,7 @@
 # Authors
 
 |Name|ID|Email|
-|---|---|---|
+|:---:|:---:|:---:|
 |Jay Prajapati|119208625|jayp@umd.edu|
 |Shail Shah|119340547|sshah115@umd.edu|
 |Shantanu Parab|119347539|sparab@umd.edu|
@@ -29,7 +29,6 @@ Simple robots working together in a multi-robot system to accomplish predetermin
 
 The fleet of robots while performing the prescribed task of aligning to form a geometrical pattern might collide during movement. Communication error due to frequency mismatch between nodes might lead to robots going haywire and can disrupt the process. Disconnection of master node or slave robots from the network might lead to inconsistent geometric patterns being formed or a complete standstill of entire process. The architecture of our system will be as follows,
 
-
 ![System Architecture](https://github.com/jayprajapati009/project_chakravyu/blob/iteration_1/documents/proposed_system_architecture.png)
 
 # Deliverables (Phase - 1)
@@ -42,13 +41,11 @@ The fleet of robots while performing the prescribed task of aligning to form a g
 |Sprint and Review Meeting Notes|[Link](https://docs.google.com/document/d/1zADA51S8-DCuGPjZB7dvrBzD6DiS--uvvF-nh4I-Mvw/edit?usp=sharing)|
 
 # Launch
+
 ```bash
 ros2 launch project_chakravyu gazebo_launch.py node_count:=20
 #In another terminal run after all robots ae spawned
 ros2 run project_chakravyu master 20
 ```
+
 Change the number of node arguments according to liking
-
-
-
-
