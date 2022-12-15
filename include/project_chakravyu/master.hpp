@@ -35,8 +35,10 @@
 #ifndef INCLUDE_PROJECT_CHAKRAVYU_MASTER_HPP_
 #define INCLUDE_PROJECT_CHAKRAVYU_MASTER_HPP_
 #include <memory>
-#include <nav_msgs/msg/odometry.hpp>
 #include <vector>
+
+#include <nav_msgs/msg/odometry.hpp>
+
 
 #include "project_chakravyu/robot.hpp"
 

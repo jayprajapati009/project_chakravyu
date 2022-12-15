@@ -36,13 +36,15 @@
 #ifndef INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
 #define INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
 
+#include <string>
+#include <utility>
+
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/bool.hpp>
-#include <string>
-#include <utility>
+
 
 class Robot : public rclcpp::Node {
  public:
@@ -60,7 +62,7 @@ class Robot : public rclcpp::Node {
         m_kh{1},
         m_goal_x{0.0},
         m_goal_y{0.0} {
-    auto current_location = std::make_pair<double, double>(3.0, 0.0);
+    auto current_location = std::make_pair(3.0, 0.0);
     m_location = current_location;
     m_cbg = this->create_callback_group(
         rclcpp::CallbackGroupType::MutuallyExclusive);
@@ -180,9 +182,7 @@ class Robot : public rclcpp::Node {
   rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr
       m_subscriber_robot3_pose;
   std::pair<double, double> m_location;
-//   geometry_msgs::msg::Quaternion m_orientation;
+  //   geometry_msgs::msg::Quaternion m_orientation;
   rclcpp::TimerBase::SharedPtr m_go_to_goal_timer;
-
-  
 };
 #endif  // INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
