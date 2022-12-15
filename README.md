@@ -31,6 +31,10 @@ The fleet of robots while performing the prescribed task of aligning to form a g
 
 ![System Architecture](https://github.com/jayprajapati009/project_chakravyu/blob/iteration_2/documents/updated_system_architecture.png)
 
+Futher briefs are mentioned in the quadchart,
+
+![quadchart](https://github.com/jayprajapati009/project_chakravyu/blob/iteration_2/documents/quadchart.png)
+
 ## Deliverables
 
 |Deliverable|Link|
