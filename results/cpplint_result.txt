@@ -3,4 +3,4 @@ Done processing ./include/project_chakravyu/robot.hpp
 Done processing ./src/main.cpp
 Done processing ./src/master.cpp
 Done processing ./src/robot.cpp
-Total errors found: 23
+Done processing ./test/test.cpp
