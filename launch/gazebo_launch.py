@@ -21,10 +21,10 @@ import sys
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import IncludeLaunchDescription,DeclareLaunchArgument, ExecuteProcess, TimerAction
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, ExecuteProcess, TimerAction
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration,PythonExpression
+from launch.substitutions import LaunchConfiguration, PythonExpression
 
 
 for arg in sys.argv:
@@ -33,11 +33,12 @@ for arg in sys.argv:
     else:
         count = 10
 
+
 def generate_launch_description():
 
-    launch_file_dir = os.path.join(get_package_share_directory('project_chakravyu'), 'launch')
+    launch_file_dir = os.path.join(
+        get_package_share_directory('project_chakravyu'), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
-
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     x_pose = LaunchConfiguration('x_pose', default='0.0')
@@ -75,7 +76,6 @@ def generate_launch_description():
         ]],
         shell=True
     )
-  
 
     # Get the urdf file
     TURTLEBOT3_MODEL = 'waffle_pi'
@@ -88,37 +88,33 @@ def generate_launch_description():
     )
     ld = LaunchDescription()
     for i in range(count):
-        robot_name= "robot_"+str(i)
-        x_val=str(float(i-(count/2)))
-        node=Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=[
-            '-entity', robot_name,
-            '-file', urdf_path,
-            '-x', x_val,
-            '-y', y_pose,
-            '-z', '0.01',
-            '-robot_namespace',robot_name
-        ],
-        output='screen',
-    )
+        robot_name = "robot_"+str(i)
+        x_val = str(float(i-(count/2)))
+        node = Node(
+            package='gazebo_ros',
+            executable='spawn_entity.py',
+            arguments=[
+                '-entity', robot_name,
+                '-file', urdf_path,
+                '-x', x_val,
+                '-y', y_pose,
+                '-z', '0.01',
+                '-robot_namespace', robot_name
+            ],
+            output='screen',
+        )
         ld.add_action(TimerAction(period=10.0+float(i*2),
-            actions=[node],))
-        
+                                  actions=[node],))
 
-    
     # ld.add_action(TimerAction(period=20.0+float(count*2),
     #         actions=[runner_node],))
-    
+
     # Add the commands to the launch description
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
     ld.add_action(robot_state_publisher_cmd)
-    
 
     # ld.add_action(spawn_turtlebot_cmd)
     # ld.add_action(node_arg)
 
-    
     return ld
