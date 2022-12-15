@@ -43,29 +43,58 @@
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
 
+/**
+ * @brief Pose Callback method
+ * 
+ * @param msg 
+ */
 void Robot::robot_pose_callback(const nav_msgs::msg::Odometry &msg) {
   m_location.first = msg.pose.pose.position.x;
   m_location.second = msg.pose.pose.position.y;
   m_orientation = msg.pose.pose.orientation;
 }
 
+/**
+ * @brief Normalizing the yaw angle
+ * 
+ * @param angle 
+ * @return double 
+ */
 double Robot::normalize_angle_positive(double angle) {
   const double result = fmod(angle, 2.0 * M_PI);
   if (result < 0) return result + 2.0 * M_PI;
   return result;
 }
 
+/**
+ * @brief Normalizing the yaw angle
+ * 
+ * @param angle 
+ * @return double 
+ */
 double Robot::normalize_angle(double angle) {
   const double result = fmod(angle + M_PI, 2.0 * M_PI);
   if (result <= 0.0) return result + M_PI;
   return result - M_PI;
 }
 
+/**
+ * @brief Computes the Euclidian Distance
+ * 
+ * @param a 
+ * @param b 
+ * @return double 
+ */
 double Robot::compute_distance(const std::pair<double, double> &a,
                                const std::pair<double, double> &b) {
   return sqrt(pow(b.first - a.first, 2) + pow(b.second - a.second, 2));
 }
 
+/**
+ * @brief Evaluates the Yaw from Quaternion
+ * 
+ * @return double 
+ */
 double Robot::compute_yaw_from_quaternion() {
   tf2::Quaternion q(m_orientation.x, m_orientation.y, m_orientation.z,
                     m_orientation.w);
@@ -76,6 +105,12 @@ double Robot::compute_yaw_from_quaternion() {
   return yaw;
 }
 
+/**
+ * @brief Sends command to move to each robots
+ * 
+ * @param linear 
+ * @param angular 
+ */
 void Robot::move(double linear, double angular) {
   geometry_msgs::msg::Twist msg;
   msg.linear.x = linear;
@@ -83,6 +118,10 @@ void Robot::move(double linear, double angular) {
   m_publisher_cmd_vel->publish(msg);
 }
 
+/**
+ * @brief Stop command
+ * 
+ */
 void Robot::stop() {
   m_go_to_goal = false;
   geometry_msgs::msg::Twist cmd_vel_msg;
@@ -95,6 +134,10 @@ void Robot::stop() {
   m_goal_reached_publisher->publish(goal_reached_msg);
 }
 
+/**
+ * @brief Send robot to the alloted location
+ * 
+ */
 void Robot::go_to_goal_callback() {
   if (!m_go_to_goal) return;
 

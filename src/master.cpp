@@ -41,7 +41,6 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/rclcpp.hpp>
 
-
 using std::placeholders::_1;
 using namespace std::chrono_literals;
 
@@ -49,6 +48,12 @@ using TWIST = geometry_msgs::msg::Twist;
 using ODOM = nav_msgs::msg::Odometry;
 using RCL_NODE_PTR = std::shared_ptr<rclcpp::Node>;
 
+/**
+ * @brief Construct a new Master:: Master object
+ * 
+ * @param robot_array 
+ * @param nodes 
+ */
 Master::Master(std::vector<std::shared_ptr<Robot>> const &robot_array,
                int nodes)
     : Node("master_node") {
@@ -59,10 +64,19 @@ Master::Master(std::vector<std::shared_ptr<Robot>> const &robot_array,
   this->circle(10.0);
 }
 
+/**
+ * @brief Process callback logger info
+ * 
+ */
 void Master::process_callback() {
-  // RCLCPP_INFO_STREAM(this->get_logger(), "iterating Publisher array");
+  RCLCPP_INFO_STREAM(this->get_logger(), "iterating Publisher array");
 }
 
+/**
+ * @brief Makes a circle for the spawned robots
+ * 
+ * @param radius 
+ */
 void Master::circle(double radius) {
   double h = 2 * 3.142 / this->nodes;
   int id = 0;
