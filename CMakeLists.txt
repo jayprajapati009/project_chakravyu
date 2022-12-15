@@ -79,8 +79,8 @@ if(BUILD_TESTING)
   set(TESTFILES
     test/test.cpp)
   ament_add_gtest(test_${PROJECT_NAME} ${TESTFILES})
-  ament_target_dependencies(test_${PROJECT_NAME} rclcpp std_msgs)
-
+  ament_target_dependencies(test_${PROJECT_NAME} tf2 tf2_ros rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
+  target_link_libraries(test_${PROJECT_NAME} robot_library)
   install(TARGETS
     test_${PROJECT_NAME}
     DESTINATION lib/${PROJECT_NAME})

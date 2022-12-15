@@ -104,32 +104,6 @@ class Robot : public rclcpp::Node {
    *
    */
   void stop();
-
- private:
-  // attributes
-  std::string m_robot_name;  // robot name used for creating namespace
-  bool m_go_to_goal;         // flag to store if the robot has reached position
-  double m_linear_speed;     // base linear velocity of robot
-  double m_angular_speed;    // base angular velocity of robot
-  double m_roll;             // rad
-  double m_pitch;            // rad
-  double m_yaw;              // rad
-  double m_kv;               // gain for linear velocity
-  double m_kh;               // gain for angular velocity
-  double m_goal_x;
-  double m_goal_y;
-  double m_distance_to_goal;
-
-  rclcpp::CallbackGroup::SharedPtr m_cbg;
-  rclcpp::TimerBase::SharedPtr m_timer;
-  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_publisher_cmd_vel;
-  rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr m_goal_reached_publisher;
-  rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr
-      m_subscriber_robot3_pose;
-  std::pair<double, double> m_location;
-  geometry_msgs::msg::Quaternion m_orientation;
-  rclcpp::TimerBase::SharedPtr m_go_to_goal_timer;
-
   /**
    * @brief Compute the distance between two points.
    *
@@ -182,5 +156,33 @@ class Robot : public rclcpp::Node {
    *
    */
   void go_to_goal_callback();
+  geometry_msgs::msg::Quaternion m_orientation;
+
+ private:
+  // attributes
+  std::string m_robot_name;  // robot name used for creating namespace
+  bool m_go_to_goal;         // flag to store if the robot has reached position
+  double m_linear_speed;     // base linear velocity of robot
+  double m_angular_speed;    // base angular velocity of robot
+  double m_roll;             // rad
+  double m_pitch;            // rad
+  double m_yaw;              // rad
+  double m_kv;               // gain for linear velocity
+  double m_kh;               // gain for angular velocity
+  double m_goal_x;
+  double m_goal_y;
+  double m_distance_to_goal;
+
+  rclcpp::CallbackGroup::SharedPtr m_cbg;
+  rclcpp::TimerBase::SharedPtr m_timer;
+  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_publisher_cmd_vel;
+  rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr m_goal_reached_publisher;
+  rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr
+      m_subscriber_robot3_pose;
+  std::pair<double, double> m_location;
+//   geometry_msgs::msg::Quaternion m_orientation;
+  rclcpp::TimerBase::SharedPtr m_go_to_goal_timer;
+
+  
 };
 #endif  // INCLUDE_PROJECT_CHAKRAVYU_ROBOT_HPP_
