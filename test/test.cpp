@@ -74,6 +74,7 @@ TEST_F(TestSuite, robot_object)
   auto r_namespace = "robot_" + std::to_string(1);
   auto nodename = "robot_" + std::to_string(1) + "_controller";
   robot = std::make_shared<Robot>(nodename, r_namespace);
+  robot->set_goal(5.0, 5.0);
   robot->go_to_goal_callback();
   EXPECT_EQ(1, 1);
 }
@@ -100,6 +101,7 @@ TEST_F(TestSuite, slave_spawn_testing_publishers)
     robot_array.push_back(robot);
   }
   auto node = std::make_shared<Master>(robot_array, static_cast<int>(nodes));
+
   for (int i = 0; i < nodes; i++) {
     auto r_namespace = "robot_" + std::to_string(i);
     auto number_of_publishers = robot_array[i]->count_publishers("/" + r_namespace + "/cmd_vel");
