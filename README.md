@@ -101,6 +101,29 @@ ros2 run project_chakravyu master 20
 
 here again, ```20``` is the number of robots the user wants to spawn.
 
+## Unit Testing
+
+```sh
+source install/setup.bash
+colcon test --packages-select project_chakravyu
+cat log/latest_test/project_chakravyu/stdout_stderr.log
+```
+
+to get the test coverage
+
+```sh
+rm -rf build/cpp_pubsub/
+colcon build --cmake-args -DCOVERAGE=1 --packages-select cpp_pubsub
+cat log/latest_build/cpp_pubsub/stdout_stderr.log
+```
+
+to generate coverage report
+
+```sh
+source install/setup.bash
+ros2 run cpp_pubsub generate_coverage_report.bash
+```
+
 ## Cpplint and Cppcheck
 
 To check the Cpplint and Cppcheck results, check ```results/``` directory. To run the check,
