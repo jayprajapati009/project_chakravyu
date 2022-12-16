@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /**
- * @file cleaner2.cpp
+ * @file master.cpp
  * @author Shantanu Parab (sparab@umd.edu)
  * @brief Algorithm to run the robot
  * @version 0.1

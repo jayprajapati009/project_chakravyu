@@ -25,7 +25,7 @@
 /**
  * @file master.hpp
  * @author Shantanu Parab (sparab@umd.edu)
- * @brief
+ * @brief Library for master.cpp
  * @version 0.1
  * @date 2022-12-09
  *

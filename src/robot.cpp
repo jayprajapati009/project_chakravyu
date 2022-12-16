@@ -24,8 +24,8 @@
 
 /**
  * @file robot.cpp
- * @author your name (you@domain.com)
- * @brief
+ * @author Shantanu Parab (sparab@umd.edu)
+ * @brief slave robot methods definations
  * @version 0.1
  * @date 2022-12-07
  *
