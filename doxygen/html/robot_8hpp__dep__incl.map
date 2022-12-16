@@ -1,0 +1,8 @@
+<map id="/home/jp/ros2_ws/src/project_chakravyu/include/project_chakravyu/robot.hpp" name="/home/jp/ros2_ws/src/project_chakravyu/include/project_chakravyu/robot.hpp">
+<area shape="rect" id="node1" title="Library for robot.cpp." alt="" coords="155,5,346,61"/>
+<area shape="rect" id="node2" href="$main_8cpp.html" title="Algorithm to run the robot." alt="" coords="5,213,160,269"/>
+<area shape="rect" id="node3" href="$robot_8cpp.html" title="slave robot methods definations" alt="" coords="73,109,228,165"/>
+<area shape="rect" id="node4" href="$master_8hpp.html" title="Library for master.cpp." alt="" coords="252,109,452,165"/>
+<area shape="rect" id="node6" href="$test_8cpp.html" title="test cases for the module" alt="" coords="410,213,569,269"/>
+<area shape="rect" id="node5" href="$master_8cpp.html" title="Algorithm to run the robot." alt="" coords="231,213,385,269"/>
+</map>

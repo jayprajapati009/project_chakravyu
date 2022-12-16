@@ -1,0 +1,245 @@
+\hypertarget{classRobot}{}\doxysection{Robot Class Reference}
+\label{classRobot}\index{Robot@{Robot}}
+
+
+Inheritance diagram for Robot\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{classRobot__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Robot\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{classRobot__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRobot_aaf4fd5eca0609ebe74429140f54008ce}\label{classRobot_aaf4fd5eca0609ebe74429140f54008ce}} 
+{\bfseries Robot} (std\+::string node\+\_\+name, std\+::string robot\+\_\+name, bool go\+\_\+to\+\_\+goal=false, double linear\+\_\+speed=2.\+0, double angular\+\_\+speed=2.\+0)
+\item 
+void \mbox{\hyperlink{classRobot_a61a0e505c9de150bac5f0d6122167cfc}{set\+\_\+goal}} (double x, double y)
+\begin{DoxyCompactList}\small\item\em Set the goal to reach. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classRobot_a14dfe126ae973d3b9f81fee81a06ac22}{stop}} ()
+\begin{DoxyCompactList}\small\item\em Stop the robot from moving. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classRobot_a80dc85734f422a47e4aeb14045231dec}{compute\+\_\+distance}} (const std\+::pair$<$ double, double $>$ \&a, const std\+::pair$<$ double, double $>$ \&b)
+\begin{DoxyCompactList}\small\item\em Compute the distance between two points. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classRobot_a430b84d4b310698f00019e70fd228da2}{robot\+\_\+pose\+\_\+callback}} (const nav\+\_\+msgs\+::msg\+::\+Odometry \&msg)
+\begin{DoxyCompactList}\small\item\em Callback function for the robot3 pose. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classRobot_a7df4e2af705b866762773eb9ad6a0bd7}{normalize\+\_\+angle\+\_\+positive}} (double angle)
+\begin{DoxyCompactList}\small\item\em Normalizes the angle to be 0 to 2$\ast$\+M\+\_\+\+PI. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classRobot_a8ab80299a9efb588936f3fdb1d38ee9b}{normalize\+\_\+angle}} (double angle)
+\begin{DoxyCompactList}\small\item\em Normalizes the angle to be -\/M\+\_\+\+PI circle to +M\+\_\+\+PI circle. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classRobot_a5a4f18963dbf9197fcb7d3b380a835da}{compute\+\_\+yaw\+\_\+from\+\_\+quaternion}} ()
+\begin{DoxyCompactList}\small\item\em Compute the yaw angle from quaternion pose. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classRobot_a6d58f42285c5431fb54988feb16ffca5}{move}} (double linear, double angular)
+\begin{DoxyCompactList}\small\item\em To move to robot by publish velocities on cmd\+\_\+vel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classRobot_a830b1309389a5a6989f0bf1e108aefaf}{go\+\_\+to\+\_\+goal\+\_\+callback}} ()
+\begin{DoxyCompactList}\small\item\em process to move the robot to a goal \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRobot_ab378d9654ed16824a7d5776ab20e4dad}\label{classRobot_ab378d9654ed16824a7d5776ab20e4dad}} 
+geometry\+\_\+msgs\+::msg\+::\+Quaternion {\bfseries m\+\_\+orientation}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classRobot_a80dc85734f422a47e4aeb14045231dec}\label{classRobot_a80dc85734f422a47e4aeb14045231dec}} 
+\index{Robot@{Robot}!compute\_distance@{compute\_distance}}
+\index{compute\_distance@{compute\_distance}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{compute\_distance()}{compute\_distance()}}
+{\footnotesize\ttfamily double Robot\+::compute\+\_\+distance (\begin{DoxyParamCaption}\item[{const std\+::pair$<$ double, double $>$ \&}]{a,  }\item[{const std\+::pair$<$ double, double $>$ \&}]{b }\end{DoxyParamCaption})}
+
+
+
+Compute the distance between two points. 
+
+Computes the Euclidian Distance.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first point. \\
+\hline
+{\em b} & The second point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double The distance between a and b.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_a5a4f18963dbf9197fcb7d3b380a835da}\label{classRobot_a5a4f18963dbf9197fcb7d3b380a835da}} 
+\index{Robot@{Robot}!compute\_yaw\_from\_quaternion@{compute\_yaw\_from\_quaternion}}
+\index{compute\_yaw\_from\_quaternion@{compute\_yaw\_from\_quaternion}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{compute\_yaw\_from\_quaternion()}{compute\_yaw\_from\_quaternion()}}
+{\footnotesize\ttfamily double Robot\+::compute\+\_\+yaw\+\_\+from\+\_\+quaternion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Compute the yaw angle from quaternion pose. 
+
+Evaluates the Yaw from Quaternion.
+
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_a830b1309389a5a6989f0bf1e108aefaf}\label{classRobot_a830b1309389a5a6989f0bf1e108aefaf}} 
+\index{Robot@{Robot}!go\_to\_goal\_callback@{go\_to\_goal\_callback}}
+\index{go\_to\_goal\_callback@{go\_to\_goal\_callback}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{go\_to\_goal\_callback()}{go\_to\_goal\_callback()}}
+{\footnotesize\ttfamily void Robot\+::go\+\_\+to\+\_\+goal\+\_\+callback (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+process to move the robot to a goal 
+
+Send robot to the alloted location. \mbox{\Hypertarget{classRobot_a6d58f42285c5431fb54988feb16ffca5}\label{classRobot_a6d58f42285c5431fb54988feb16ffca5}} 
+\index{Robot@{Robot}!move@{move}}
+\index{move@{move}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Robot\+::move (\begin{DoxyParamCaption}\item[{double}]{linear,  }\item[{double}]{angular }\end{DoxyParamCaption})}
+
+
+
+To move to robot by publish velocities on cmd\+\_\+vel. 
+
+Sends command to move to each robots.
+
+
+\begin{DoxyParams}{Parameters}
+{\em linear} & linear velocity component \\
+\hline
+{\em angular} & angular velocity component\\
+\hline
+{\em linear} & \\
+\hline
+{\em angular} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRobot_a8ab80299a9efb588936f3fdb1d38ee9b}\label{classRobot_a8ab80299a9efb588936f3fdb1d38ee9b}} 
+\index{Robot@{Robot}!normalize\_angle@{normalize\_angle}}
+\index{normalize\_angle@{normalize\_angle}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{normalize\_angle()}{normalize\_angle()}}
+{\footnotesize\ttfamily double Robot\+::normalize\+\_\+angle (\begin{DoxyParamCaption}\item[{double}]{angle }\end{DoxyParamCaption})}
+
+
+
+Normalizes the angle to be -\/M\+\_\+\+PI circle to +M\+\_\+\+PI circle. 
+
+Normalizing the yaw angle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & Angle to normalize (rad) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double Normalized angle (rad)
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_a7df4e2af705b866762773eb9ad6a0bd7}\label{classRobot_a7df4e2af705b866762773eb9ad6a0bd7}} 
+\index{Robot@{Robot}!normalize\_angle\_positive@{normalize\_angle\_positive}}
+\index{normalize\_angle\_positive@{normalize\_angle\_positive}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{normalize\_angle\_positive()}{normalize\_angle\_positive()}}
+{\footnotesize\ttfamily double Robot\+::normalize\+\_\+angle\+\_\+positive (\begin{DoxyParamCaption}\item[{double}]{angle }\end{DoxyParamCaption})}
+
+
+
+Normalizes the angle to be 0 to 2$\ast$\+M\+\_\+\+PI. 
+
+Normalizing the yaw angle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & Angle to normalize (rad) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double Normalized angle (rad)
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_a430b84d4b310698f00019e70fd228da2}\label{classRobot_a430b84d4b310698f00019e70fd228da2}} 
+\index{Robot@{Robot}!robot\_pose\_callback@{robot\_pose\_callback}}
+\index{robot\_pose\_callback@{robot\_pose\_callback}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{robot\_pose\_callback()}{robot\_pose\_callback()}}
+{\footnotesize\ttfamily void Robot\+::robot\+\_\+pose\+\_\+callback (\begin{DoxyParamCaption}\item[{const nav\+\_\+msgs\+::msg\+::\+Odometry \&}]{msg }\end{DoxyParamCaption})}
+
+
+
+Callback function for the robot3 pose. 
+
+Pose Callback method.
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Odometry message.\\
+\hline
+{\em msg} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRobot_a61a0e505c9de150bac5f0d6122167cfc}\label{classRobot_a61a0e505c9de150bac5f0d6122167cfc}} 
+\index{Robot@{Robot}!set\_goal@{set\_goal}}
+\index{set\_goal@{set\_goal}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{set\_goal()}{set\_goal()}}
+{\footnotesize\ttfamily void Robot\+::set\+\_\+goal (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the goal to reach. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+\_\+to\+\_\+goal} & Flag used to perform a transform listener \\
+\hline
+{\em x} & x-\/coordinate of the goal position. \\
+\hline
+{\em y} & y-\/coordinate of the goal position. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRobot_a14dfe126ae973d3b9f81fee81a06ac22}\label{classRobot_a14dfe126ae973d3b9f81fee81a06ac22}} 
+\index{Robot@{Robot}!stop@{stop}}
+\index{stop@{stop}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily void Robot\+::stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Stop the robot from moving. 
+
+Stop command. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/jp/ros2\+\_\+ws/src/project\+\_\+chakravyu/include/project\+\_\+chakravyu/\mbox{\hyperlink{robot_8hpp}{robot.\+hpp}}\item 
+/home/jp/ros2\+\_\+ws/src/project\+\_\+chakravyu/src/\mbox{\hyperlink{robot_8cpp}{robot.\+cpp}}\end{DoxyCompactItemize}
