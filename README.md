@@ -29,11 +29,11 @@ Simple robots working together in a multi-robot system to accomplish predetermin
 
 The fleet of robots while performing the prescribed task of aligning to form a geometric pattern might collide during movement. Communication error due to frequency mismatch between nodes might lead to robots going haywire and can disrupt the process. Disconnection of master node or slave robots from the network might lead to inconsistent geometric patterns being formed or a complete standstill of the entire process. The architecture of our system will be as follows,
 
-![System Architecture](https://github.com/jayprajapati009/project_chakravyu/blob/iteration_2/documents/updated_system_architecture.png)
+![System Architecture](https://github.com/jayprajapati009/project_chakravyu/blob/main/documents/updated_system_architecture.png)
 
 Futher briefs are mentioned in the quadchart,
 
-![quadchart](https://github.com/jayprajapati009/project_chakravyu/blob/iteration_2/documents/quadchart.png)
+![quadchart](https://github.com/jayprajapati009/project_chakravyu/blob/main/documents/quadchart.png)
 
 ## Deliverables
 
