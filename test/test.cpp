@@ -48,7 +48,6 @@
  */
 class TestSuite : public testing::Test {
  protected:
-  rclcpp::Node::SharedPtr test_node_;
   std::shared_ptr<Robot> robot;
   std::shared_ptr<Master> master;
 };
@@ -56,17 +55,6 @@ class TestSuite : public testing::Test {
 ///////////////////////////////////////////////////////////
 /// Tests
 ///////////////////////////////////////////////////////////
-
-TEST_F(TestSuite, test_publisher_count) {
-  test_node_ = rclcpp::Node::make_shared("test_publisher");
-  auto test_pub_1 =
-      test_node_->create_publisher<std_msgs::msg::String>("topic", 10.0);
-  auto test_pub_2 =
-      test_node_->create_publisher<std_msgs::msg::String>("topic", 10.0);
-
-  auto number_of_publishers = test_node_->count_publishers("topic");
-  EXPECT_EQ(2, static_cast<int>(number_of_publishers));
-}
 TEST_F(TestSuite, robot_object) {
   auto r_namespace = "robot_" + std::to_string(1);
   auto nodename = "robot_" + std::to_string(1) + "_controller";
@@ -97,7 +85,6 @@ TEST_F(TestSuite, slave_spawn_testing_publishers) {
     exec.add_node(robot);
     robot_array.push_back(robot);
   }
-  auto node = std::make_shared<Master>(robot_array, static_cast<int>(nodes));
 
   for (int i = 0; i < nodes; i++) {
     auto r_namespace = "robot_" + std::to_string(i);
@@ -121,7 +108,6 @@ TEST_F(TestSuite, slave_spawn_testing_subscribers) {
     exec.add_node(robot);
     robot_array.push_back(robot);
   }
-  auto node = std::make_shared<Master>(robot_array, static_cast<int>(nodes));
   for (int i = 0; i < nodes; i++) {
     auto r_namespace = "robot_" + std::to_string(i);
     auto number_of_subs =
