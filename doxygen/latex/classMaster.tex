@@ -1,0 +1,101 @@
+\hypertarget{classMaster}{}\doxysection{Master Class Reference}
+\label{classMaster}\index{Master@{Master}}
+
+
+Class for the robot master.  
+
+
+
+
+{\ttfamily \#include $<$master.\+hpp$>$}
+
+
+
+Inheritance diagram for Master\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{classMaster__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Master\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{classMaster__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMaster_a76a93a6ac5bac434ae299e975b17bafd}{Master}} (std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classRobot}{Robot}} $>$$>$ const \&robot\+\_\+array, int nodes)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classMaster}{Master}}\+:\+: \mbox{\hyperlink{classMaster}{Master}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMaster_af226730df0ced72c25bd811e3ac51e57}{process\+\_\+callback}} ()
+\begin{DoxyCompactList}\small\item\em process callback to kepp the ode running \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMaster_a79a2f4cab8ab31de549ca762827666bb}{circle}} (double radius)
+\begin{DoxyCompactList}\small\item\em Create co ordinate points for robots to form a circel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for the robot master. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMaster_a76a93a6ac5bac434ae299e975b17bafd}\label{classMaster_a76a93a6ac5bac434ae299e975b17bafd}} 
+\index{Master@{Master}!Master@{Master}}
+\index{Master@{Master}!Master@{Master}}
+\doxysubsubsection{\texorpdfstring{Master()}{Master()}}
+{\footnotesize\ttfamily Master\+::\+Master (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classRobot}{Robot}} $>$$>$ const \&}]{robot\+\_\+array,  }\item[{int}]{nodes }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classMaster}{Master}}\+:\+: \mbox{\hyperlink{classMaster}{Master}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\+\_\+array} & \\
+\hline
+{\em nodes} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMaster_a79a2f4cab8ab31de549ca762827666bb}\label{classMaster_a79a2f4cab8ab31de549ca762827666bb}} 
+\index{Master@{Master}!circle@{circle}}
+\index{circle@{circle}!Master@{Master}}
+\doxysubsubsection{\texorpdfstring{circle()}{circle()}}
+{\footnotesize\ttfamily void Master\+::circle (\begin{DoxyParamCaption}\item[{double}]{radius }\end{DoxyParamCaption})}
+
+
+
+Create co ordinate points for robots to form a circel. 
+
+Makes a circle for the spawned robots.
+
+
+\begin{DoxyParams}{Parameters}
+{\em radius} & Radius of the circle\\
+\hline
+{\em radius} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMaster_af226730df0ced72c25bd811e3ac51e57}\label{classMaster_af226730df0ced72c25bd811e3ac51e57}} 
+\index{Master@{Master}!process\_callback@{process\_callback}}
+\index{process\_callback@{process\_callback}!Master@{Master}}
+\doxysubsubsection{\texorpdfstring{process\_callback()}{process\_callback()}}
+{\footnotesize\ttfamily void Master\+::process\+\_\+callback (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+process callback to kepp the ode running 
+
+Process callback logger info. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/jp/ros2\+\_\+ws/src/project\+\_\+chakravyu/include/project\+\_\+chakravyu/\mbox{\hyperlink{master_8hpp}{master.\+hpp}}\item 
+/home/jp/ros2\+\_\+ws/src/project\+\_\+chakravyu/src/\mbox{\hyperlink{master_8cpp}{master.\+cpp}}\end{DoxyCompactItemize}
